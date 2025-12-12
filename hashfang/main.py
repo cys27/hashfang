@@ -1,7 +1,7 @@
-from . import banner
-from .cli import get_args
-from .cracker import cracker
-from .identifier import identify
+from hashfang import banner
+from hashfang.cli import get_args
+from hashfang.cracker import cracker
+from hashfang.identifier import identify
 
 # Supported algorithms list
 SUPPORTED_ALGORITHMS = [

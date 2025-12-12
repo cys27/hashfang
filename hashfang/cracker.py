@@ -2,9 +2,9 @@ import sys
 
 import bcrypt
 
-from .cli import get_args
-from .encoders import encode_general, encode_pbkdf2, encode_scrypt
-from .identifier import identify
+from hashfang.cli import get_args
+from hashfang.encoders import encode_general, encode_pbkdf2, encode_scrypt
+from hashfang.identifier import identify
 
 
 def read_wordlist(wordlist):
