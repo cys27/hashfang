@@ -36,7 +36,6 @@ def read_wordlist(wordlist):
 
 
 def cracker(hash_value, wordlist, algorithms):
-    # algorithms artık bir liste
     possible_algorithms = algorithms if isinstance(algorithms, list) else [algorithms]
 
     entries = read_wordlist(wordlist)
