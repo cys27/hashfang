@@ -35,18 +35,28 @@ def main():
             print(f"  - {algo}")
         return
 
+    detected_algos = []
+
     if args.detect:
         possible = identify(args.hash)
         if possible:
             print("[*] Possible algorithm(s):")
             for algo in possible:
                 print(f"  - {algo}")
+            detected_algos = possible
         else:
             print("[-] Could not identify the hash type.")
-        return
+            return
 
     if args.crack:
-        cracker()
+        if args.algorithm != "unknown":
+            algos = [args.algorithm]
+        elif detected_algos:
+            algos = detected_algos
+        else:
+            print("[-] No algorithm specified. Use -a or -d to detect.")
+            return
+        cracker(args.hash, args.wordlist, algos)
 
 
 if __name__ == "__main__":
