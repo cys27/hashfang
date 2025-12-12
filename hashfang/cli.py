@@ -60,7 +60,10 @@ def get_args():
     if args.detect and args.algorithm != "unknown":
         parser.error("The --detect and --algorithm options cannot be used together.")
 
-    if args.crack and args.algorithm == "unknown":
+    if args.crack and not args.wordlist:
+        parser.error("Cracking requires a wordlist file (-w).")
+
+    if args.crack and args.algorithm == "unknown" and not args.detect:
         parser.error(
             "Cracking requires a known algorithm. Use --algorithm or --detect."
         )
