@@ -39,10 +39,10 @@ def encode_pbkdf2(text, salt=None, iterations=260000):
     return f"pbkdf2:sha256:{iterations}${salt.hex()}${dk.hex()}"
 
 
-def encode_scrypt(text, salt=None):
+def encode_scrypt(text, salt=None, n=16384, r=8, p=1):
     if salt is None:
         salt = os.urandom(16)
 
-    dk = hashlib.scrypt(text.encode("utf-8"), salt=salt, n=16384, r=8, p=1)
+    dk = hashlib.scrypt(text.encode("utf-8"), salt=salt, n=n, r=r, p=p)
 
-    return f"$s0$n=16384,r=8,p=1${salt.hex()}${dk.hex()}"
+    return f"$s0$n={n},r={r},p={p}${salt.hex()}${dk.hex()}"
