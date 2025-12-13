@@ -2,7 +2,7 @@
 
 Hashfang is a lightweight hash identifier and cracker written in Python. It is designed to be fast, simple to use, and effective for detecting hash types and performing dictionary attacks.
 
-![Hashfang Help Menu](images/hashfang_help.png)
+![Hashfang Demo](images/hashfang_demo.gif)
 
 ## Features
 
