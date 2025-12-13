@@ -1,9 +1,11 @@
+from hashfang.utils import Colors
+
 app_name = "hashfang"
 desc = "Compact tool for hash type detection and cracking."
 version = "0.1.0"
 author = "cys27"
 
-banner = rf"""
+banner = rf"""{Colors.CYAN}
 /$$                           /$$        /$$$$$$
 | $$                          | $$       /$$__  $$
 | $$$$$$$   /$$$$$$   /$$$$$$$| $$$$$$$ | $$  \__//$$$$$$  /$$$$$$$   /$$$$$$
@@ -17,4 +19,4 @@ banner = rf"""
                                                                     \______/
 
                                                 v{version} by @{author}
-"""
+{Colors.ENDC}"""
