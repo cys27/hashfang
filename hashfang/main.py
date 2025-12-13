@@ -2,6 +2,7 @@ from hashfang import banner
 from hashfang.cli import get_args
 from hashfang.cracker import cracker
 from hashfang.identifier import identify
+from hashfang.utils import Colors
 
 # Supported algorithms list
 SUPPORTED_ALGORITHMS = [
@@ -30,9 +31,9 @@ def main():
 
     # list supported algorithms
     if args.list:
-        print("[*] Supported algorithms:")
+        print(f"{Colors.BLUE}[*] Supported algorithms:{Colors.ENDC}")
         for algo in SUPPORTED_ALGORITHMS:
-            print(f"  - {algo}")
+            print(f"  - {Colors.YELLOW}{algo}{Colors.ENDC}")
         return
 
     detected_algos = []
@@ -40,12 +41,12 @@ def main():
     if args.detect:
         possible = identify(args.hash)
         if possible:
-            print("[*] Possible algorithm(s):")
+            print(f"{Colors.BLUE}[*] Possible algorithm(s):{Colors.ENDC}")
             for algo in possible:
-                print(f"  - {algo}")
+                print(f"  - {Colors.YELLOW}{algo}{Colors.ENDC}")
             detected_algos = possible
         else:
-            print("[-] Could not identify the hash type.")
+            print(f"{Colors.RED}[-] Could not identify the hash type.{Colors.ENDC}")
             return
 
     if args.crack:
@@ -54,7 +55,9 @@ def main():
         elif detected_algos:
             algos = detected_algos
         else:
-            print("[-] No algorithm specified. Use -a or -d to detect.")
+            print(
+                f"{Colors.RED}[-] No algorithm specified. Use -a or -d to detect.{Colors.ENDC}"
+            )
             return
         cracker(args.hash, args.wordlist, algos)
 

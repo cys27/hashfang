@@ -3,6 +3,7 @@ import sys
 import bcrypt
 
 from hashfang.encoders import encode_general, encode_pbkdf2, encode_scrypt
+from hashfang.utils import Colors
 
 
 def read_wordlist(wordlist):
@@ -23,12 +24,12 @@ def read_wordlist(wordlist):
                     entries.append(word)
 
     except FileNotFoundError:
-        print(f"Error: The file {wordlist} was not found!")
+        print(f"{Colors.RED}Error: The file {wordlist} was not found!{Colors.ENDC}")
 
         sys.exit(1)
 
     except IOError as err:
-        print(f"IO error occurred: {err}")
+        print(f"{Colors.RED}IO error occurred: {err}{Colors.ENDC}")
 
         sys.exit(1)
 
@@ -36,29 +37,36 @@ def read_wordlist(wordlist):
 
 
 def cracker(hash_value, wordlist, algorithms):
-    # algorithms artık bir liste
     possible_algorithms = algorithms if isinstance(algorithms, list) else [algorithms]
 
     entries = read_wordlist(wordlist)
 
     if len(entries) == 0:
-        print(f"The {wordlist} file is empty!")
+        print(f"{Colors.RED}The {wordlist} file is empty!{Colors.ENDC}")
         sys.exit(1)
 
-    print(f"\n[*] The attack is starting... ({len(entries)} words)")
-    print(f"[*] Possible algorithms: {' / '.join(possible_algorithms)}")
+    print(
+        f"\n{Colors.BLUE}[*] The attack is starting... ({len(entries)} words){Colors.ENDC}"
+    )
+    print(
+        f"{Colors.BLUE}[*] Possible algorithms: {Colors.YELLOW}{' / '.join(possible_algorithms)}{Colors.ENDC}"
+    )
 
     found = False
 
     for algo in possible_algorithms:
-        print(f"[*] The program is trying the {algo} algorithm")
+        print(
+            f"{Colors.BLUE}[*] The program is trying the {Colors.YELLOW}{algo}{Colors.BLUE} algorithm{Colors.ENDC}"
+        )
 
         for word in entries:
             # the ai wrote the code inside the if statement.
             if algo == "bcrypt":
                 try:
                     if bcrypt.checkpw(word.encode("utf-8"), hash_value.encode("utf-8")):
-                        print(f"\n[+] Password was found: {word}")
+                        print(
+                            f"\n{Colors.GREEN}[+] Password was found: {Colors.BOLD}{word}{Colors.ENDC}"
+                        )
                         found = True
                         break
 
@@ -79,7 +87,9 @@ def cracker(hash_value, wordlist, algorithms):
                     )
 
                     if check_hash == hash_value:
-                        print(f"\n[+] Password was found: {word}")
+                        print(
+                            f"\n{Colors.GREEN}[+] Password was found: {Colors.BOLD}{word}{Colors.ENDC}"
+                        )
                         found = True
                         break
 
@@ -102,7 +112,9 @@ def cracker(hash_value, wordlist, algorithms):
                     )
 
                     if check_hash == hash_value:
-                        print(f"\n[+] Password was found: {word}")
+                        print(
+                            f"\n{Colors.GREEN}[+] Password was found: {Colors.BOLD}{word}{Colors.ENDC}"
+                        )
                         found = True
                         break
                 except Exception:
@@ -110,7 +122,9 @@ def cracker(hash_value, wordlist, algorithms):
             else:
                 check_hash = encode_general(word, algo)
                 if check_hash == hash_value:
-                    print(f"\n[+] Password was found: {word}")
+                    print(
+                        f"\n{Colors.GREEN}[+] Password was found: {Colors.BOLD}{word}{Colors.ENDC}"
+                    )
                     found = True
                     break
 
@@ -118,4 +132,4 @@ def cracker(hash_value, wordlist, algorithms):
             break
 
     if not found:
-        print("\n[-] Password was not found in the wordlist.")
+        print(f"\n{Colors.RED}[-] Password was not found in the wordlist.{Colors.ENDC}")
