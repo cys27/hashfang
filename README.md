@@ -119,3 +119,9 @@ hashfang -l
 ## License
 
 This project is licensed under the GNU General Public License v3.0 (GPLv3). See the [LICENSE](LICENSE) file for details.
+
+## Disclaimer
+
+This tool is intended for authorized password auditing and educational purposes only. Unauthorized use is prohibited. The author is not responsible for any misuse.
+
+---
